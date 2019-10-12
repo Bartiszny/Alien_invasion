@@ -23,6 +23,7 @@ def check_events(ship):
             elif event.key == pygame.K_LEFT:
                 ship.moving_left = False
 
+
 def update_screen(ai_settings, screen, ship):
     """Game screen update"""
 
