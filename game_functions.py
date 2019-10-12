@@ -1,6 +1,26 @@
 import sys
 import pygame
 
+def check_keydown_events(event, ship):
+    """Reaction for keydown event"""
+    if event.key == pygame.K_RIGHT:
+        # Moving ship to the right
+        ship.moving_right = True
+
+    elif event.key == pygame.K_LEFT:
+        # Moving ship to the left
+        ship.moving_left = True
+
+
+def check_keyup_event(event, ship):
+    """Reaction for keyup event"""
+    if event.key == pygame.K_RIGHT:
+        ship.moving_right = False
+
+    elif event.key == pygame.K_LEFT:
+         ship.moving_left = False
+
+
 def check_events(ship):
     """ Waiting for button"""
     for event in pygame.event.get():
@@ -8,20 +28,10 @@ def check_events(ship):
             sys.exit()
 
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                # Moving ship to the right
-                ship.moving_right = True
-
-            elif event.key == pygame.K_LEFT:
-                 # Moving ship to the left
-                ship.moving_left = True
+            check_keydown_events(event, ship)
 
         elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
-                ship.moving_right = False
-
-            elif event.key == pygame.K_LEFT:
-                ship.moving_left = False
+            check_keyup_event(event, ship)
 
 
 def update_screen(ai_settings, screen, ship):
