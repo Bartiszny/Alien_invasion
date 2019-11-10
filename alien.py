@@ -19,7 +19,7 @@ class Alien(Sprite):
         self.rect.y = self.rect.height
 
         # Storing exact position of an alien
-        self.x = float(self.rec.x)
+        self.x = float(self.rect.x)
 
     def blitme(self):
         """Displaying an alien in its current position"""

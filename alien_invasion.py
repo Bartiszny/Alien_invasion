@@ -5,6 +5,7 @@ from settings import Settings
 from ship import Ship
 import game_functions as gf
 
+
 def run_game():
     """Main game method"""
     # Game initialization
@@ -15,15 +16,19 @@ def run_game():
 
     # Ship init
     ship = Ship(ai_settings, screen)
-    # Group for bullets storing
+    # Group for bullets and aliens storing
     bullets = Group()
+    aliens = Group()
+
+    # Creating alien fleet
+    gf.create_fleet(ai_settings, screen, aliens)
 
     # Main loop
     while True:
         gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
         gf.update_bullets(bullets)
-        gf.update_screen(ai_settings, screen, ship, bullets)
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 
 run_game()
