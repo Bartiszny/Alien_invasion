@@ -40,7 +40,7 @@ def check_keyup_event(event, ship):
         ship.moving_left = False
 
 
-def check_events(ai_settings, screen, ship, bullets):
+def check_events(ai_settings, screen, stats, ship, bullets, play_button):
     """ Waiting for button"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,8 +52,18 @@ def check_events(ai_settings, screen, ship, bullets):
         elif event.type == pygame.KEYUP:
             check_keyup_event(event, ship)
 
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(stats, play_button, mouse_x, mouse_y)
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+
+def check_play_button(stats, play_button, mouse_x, mouse_y):
+    """Starting new game on click"""
+    if play_button.rect.collidepoint(mouse_x, mouse_y):
+        stats.game_active = True
+
+
+def update_screen(ai_settings, screen, stats, ship, aliens, play_button, bullets):
     """Game screen update"""
 
     # Display refreshing each iteration
@@ -64,6 +74,10 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
         bullet.draw_bullet()
     ship.blitme()
     aliens.draw(screen)
+
+    # Displaying button only when game is inactive
+    if not stats.game_active:
+        play_button.draw_button()
 
     # Displaying last modified screen
     pygame.display.flip()
